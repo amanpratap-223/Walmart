@@ -1,11 +1,13 @@
 import React from 'react'
 import Navbar from '../Layout/Navbar'
+import Mainnavbar from '../Layout/Mainnavbar'
 
 const Header = () => {
   return (
-    <div>
+    <header className='border-b border-gray-200'>
       <Navbar/>
-    </div>
+      <Mainnavbar/>
+    </header>
   )
 }
 
