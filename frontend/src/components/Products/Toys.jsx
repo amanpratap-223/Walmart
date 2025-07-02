@@ -129,7 +129,7 @@ const Toys = () => {
   const [dragStartX, setDragStartX] = useState(0);
 
   return (
-    <div className="w-full bg-white py-10">
+    <div className="w-full bg-white py-10 px-20">
       <div className="max-w-[1600px] mx-auto px-0">
         <h2 className="text-2xl font-bold mb-2 text-center">Best of Toys</h2>
         <p className="text-gray-500 text-center mb-8">
