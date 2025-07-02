@@ -91,11 +91,11 @@ const Hero = () => (
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           <div className="relative z-10 p-6 flex flex-col h-full justify-between">
             <div>
-              <h2 className={`font-extrabold ${card.bigText ? 'text-4xl md:text-5xl' : 'text-2xl md:text-3xl'} tracking-tight text-black-900 `}>
+              <h2 className={`font-extrabold ${card.bigText ? 'text-4xl md:text-5xl' : 'text-2xl md:text-3xl'} tracking-tight text-white `}>
 
                 {card.title}
               </h2>
-              <p className="text-gray-900 font-medium">{card.subtitle}</p>
+              <p className="text-white font-medium">{card.subtitle}</p>
             </div>
             {card.button && (
               <button className="mt-4 px-4 py-2 bg-red-600 text-white rounded-full shadow hover:bg-red-700 transition">

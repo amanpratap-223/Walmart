@@ -11,70 +11,70 @@ const electronics = [
     id: "electronics-1" ,
     title: "Dell 24'' Monitor",
     price: "₹8,279",
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80",
+    image: "https://m.media-amazon.com/images/I/81r4H4+w+FL._AC_UY218_.jpg",
     description: "Full HD monitor with stunning visuals and a sleek design.",
   },
   {
     id: "electronics-2",
     title: "Noise Smartwatch",
     price: "₹1,099",
-    image: "https://cdn.shopify.com/s/files/1/0997/6284/products/1_6b4c1f2c-5f7e-4e1b-8e9a-9c7a2c3e2f5d_1024x1024.jpg",
+    image: "https://m.media-amazon.com/images/I/61916qAPLDL._AC_UY218_.jpg",
     description: "Stay connected and healthy with this smart wearable.",
   },
   {
     id: "electronics-3",
     title: "Fastrack Smartwatch",
     price: "₹1,399",
-    image: "https://www.fastrack.in/cdn/shop/products/38085AP01_1.jpg",
+    image: "https://m.media-amazon.com/images/I/81RSrpHOiaL._AC_UY218_.jpg",
     description: "Trendy and functional smartwatch for everyday use.",
   },
   {
     id: "electronics-4",
     title: "Mobile Speaker",
     price: "₹499",
-    image: "https://m.media-amazon.com/images/I/81v+Qz2Rk-L.AC_SL1500.jpg",
+    image: "https://m.media-amazon.com/images/I/71b122pwbpL._AC_UY218_.jpg",
     description: "Portable speaker with deep bass and long battery life.",
   },
   {
     id: "electronics-5",
     title: "Sony Wireless Earbuds",
     price: "₹2,899",
-    image: "https://images.unsplash.com/photo-1580894732444-58d51b0094e0?auto=format&fit=crop&w=800&q=80",
+    image: "https://m.media-amazon.com/images/I/51B6+Iyd3ML._AC_UY218_.jpg",
     description: "Premium sound, noise-canceling, with charging case.",
   },
   {
     id: "electronics-6",
-    title: "Apple iPad (9th Gen)",
+    title: "Apple iPad (11th Gen)",
     price: "₹28,999",
-    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80",
+    image: "https://m.media-amazon.com/images/I/61kMIKm23VL._AC_UY218_.jpg",
     description: "Versatile tablet for work and play.",
   },
   {
     id: "electronics-7",
     title: "Canon DSLR Camera",
     price: "₹23,500",
-    image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80",
+    image: "https://m.media-amazon.com/images/I/6122KmUSM4L._AC_UY218_.jpg",
     description: "Capture stunning photos and videos.",
   },
   {
     id: "electronics-8",
     title: "HP Pavilion Laptop",
     price: "₹48,999",
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80",
+    image: "https://m.media-amazon.com/images/I/615itEeM5ZL._AC_UY218_.jpg",
     description: "Reliable laptop for everyday tasks.",
   },
   {
     id: "electronics-9",
     title: "Samsung Galaxy S23",
     price: "₹59,999",
-    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80",
+    image: "https://m.media-amazon.com/images/I/719zApN1mhL._AC_UY218_.jpg",
     description: "Flagship smartphone with advanced features.",
   },
   {
     id: "electronics-10",
     title: "Google Chromecast",
     price: "₹2,499",
-    image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80",
+    image: "https://m.media-amazon.com/images/I/415kWNOHUiL._AC_UL320_.jpg",
     description: "Stream your favorite shows easily.",
   },
 ];
@@ -145,8 +145,8 @@ const Electronics = () => {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-56 object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                    draggable="false"
+                    className="w-full h-48 object-contain rounded-t-lg"
+                    draggable="true"
                   />
                   <div className="w-full px-4 py-3">
                     <div className="text-base font-semibold text-gray-800 truncate">{item.title}</div>

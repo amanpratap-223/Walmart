@@ -10,70 +10,70 @@ const furniture = [
     id: "furniture-1",
     title: "Sofa Set",
     price: "₹19,999",
-    image: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/81iDoT+WxEL._AC_UL320_.jpg",
     description: "Luxurious 3-seater for your living room.",
   },
   {
     id: "furniture-2",
     title: "Dining Table",
     price: "₹8,299",
-    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/71lbQPCiw4L._AC_UL320_.jpg",
     description: "6-seater with elegant wooden finish.",
   },
   {
     id: "furniture-3",
     title: "Queen Bed",
     price: "₹12,499",
-    image: "https://images.unsplash.com/photo-1465101178521-c1a9136a07b7?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1560448075-57d0285fc59b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cXVlZW4lMjBiZWR8ZW58MHx8MHx8fDA%3D",
     description: "With soft mattress for great sleep.",
   },
   {
     id: "furniture-4",
     title: "Study Desk",
     price: "₹2,399",
-    image: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/81GBoZTQ9dL._AC_UL320_.jpg",
     description: "Perfect for students and WFH.",
   },
   {
     id: "furniture-5",
     title: "Office Chair",
     price: "₹2,799",
-    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/41lzPkXKv7L._AC_UL320_.jpg",
     description: "Ergonomic and comfortable.",
   },
   {
     id: "furniture-6",
     title: "Bookshelf",
     price: "₹1,799",
-    image: "https://images.unsplash.com/photo-1465101178521-c1a9136a07b7?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/71wG4xHZCUL._AC_UL320_.jpg",
     description: "Spacious and modern design.",
   },
   {
     id: "furniture-7",
     title: "Bean Bag",
     price: "₹999",
-    image: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/71gzl1bovNL._AC_UL320_.jpg",
     description: "Comfy and light, moves anywhere.",
   },
   {
     id: "furniture-8",
     title: "Shoe Rack",
     price: "₹899",
-    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/71VK+qQH-6L._AC_UL320_.jpg",
     description: "Keep your footwear organized.",
   },
   {
     id: "furniture-9",
     title: "Coffee Table",
     price: "₹1,499",
-    image: "https://images.unsplash.com/photo-1465101178521-c1a9136a07b7?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/81bnrrd4x8L._AC_UL320_.jpg",
     description: "Stylish and practical.",
   },
   {
     id: "furniture-10",
     title: "Wall Shelf",
     price: "₹749",
-    image: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/61PoJM9m9fL._AC_UL320_.jpg",
     description: "Decorative wall shelf for all rooms.",
   },
 ];
@@ -151,7 +151,7 @@ const Furniture = () => {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-44 object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-48 object-contain rounded-t-lg"
                     draggable="false"
                   />
                   <div className="w-full px-4 py-3">

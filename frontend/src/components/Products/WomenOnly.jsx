@@ -3,16 +3,16 @@ import Slider from "react-slick";
 import ProductModal from "./ProductModal";
 
 const womenProducts = [
-  { id: "women-1", title: "Floral Dress", price: "₹1,299", image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80", description: "Elegant dress for any occasion." },
-  { id: "women-2", title: "Ladies Handbag", price: "₹1,099", image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80", description: "Trendy handbag, lots of space." },
-  { id: "women-3", title: "Sandals", price: "₹499", image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=400&q=80", description: "Comfortable and stylish sandals." },
-  { id: "women-4", title: "Scarf", price: "₹299", image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80", description: "Soft and colorful scarf." },
-  { id: "women-5", title: "Stud Earrings", price: "₹199", image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80", description: "Minimalist and cute." },
-  { id: "women-6", title: "Ladies Watch", price: "₹799", image: "https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=crop&w=400&q=80", description: "Chic watch with leather strap." },
-  { id: "women-7", title: "Makeup Kit", price: "₹1,499", image: "https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=crop&w=400&q=80", description: "All your essentials in one box." },
-  { id: "women-8", title: "Kurti", price: "₹799", image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80", description: "Traditional and comfortable." },
-  { id: "women-9", title: "Sling Bag", price: "₹649", image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80", description: "Lightweight & easy to carry." },
-  { id: "women-10", title: "Yoga Pants", price: "₹599", image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80", description: "Stretchy & comfy for fitness." },
+  { id: "women-1", title: "Floral Dress", price: "₹1,299", image: "https://m.media-amazon.com/images/I/81pBO8PJHJL._AC_UL320_.jpg", description: "Elegant dress for any occasion." },
+  { id: "women-2", title: "Ladies Handbag", price: "₹1,099", image: "https://m.media-amazon.com/images/I/71H+bU8niFL._AC_UL320_.jpg", description: "Trendy handbag, lots of space." },
+  { id: "women-3", title: "Sandals", price: "₹499", image: "https://m.media-amazon.com/images/I/71iTWo7vBiL._AC_UL320_.jpg", description: "Comfortable and stylish sandals." },
+  { id: "women-4", title: "Scarf", price: "₹299", image: "https://m.media-amazon.com/images/I/613y52S4l5L._AC_UL320_.jpg", description: "Soft and colorful scarf." },
+  { id: "women-5", title: "Stud Earrings", price: "₹199", image: "https://m.media-amazon.com/images/I/71vmRI7hwcL._AC_UL320_.jpg", description: "Minimalist and cute." },
+  { id: "women-6", title: "Ladies Watch", price: "₹799", image: "https://m.media-amazon.com/images/I/71SG9VELs2S._AC_UL320_.jpg", description: "Chic watch with leather strap." },
+  { id: "women-7", title: "Makeup Kit", price: "₹1,499", image: "https://m.media-amazon.com/images/I/61WsPPt4vYL._AC_UL320_.jpg", description: "All your essentials in one box." },
+  { id: "women-8", title: "Kurti", price: "₹799", image: "https://m.media-amazon.com/images/I/31gghxtWebL._AC_UL320_.jpg", description: "Traditional and comfortable." },
+  { id: "women-9", title: "Sling Bag", price: "₹649", image: "https://m.media-amazon.com/images/I/71IUcr74HIL._AC_UL320_.jpg", description: "Lightweight & easy to carry." },
+  { id: "women-10", title: "Yoga Pants", price: "₹599", image: "https://m.media-amazon.com/images/I/51YiNdlC6mL._AC_UL320_.jpg", description: "Stretchy & comfy for fitness." },
 ];
 
 const sliderSettings = {
@@ -69,7 +69,7 @@ const WomenOnly = () => {
                   }}
                   className="rounded-xl border border-gray-300 bg-white shadow-md hover:shadow-lg transition flex flex-col items-center overflow-hidden cursor-pointer"
                 >
-                  <img src={item.image} alt={item.title} className="w-full h-44 object-cover object-center" draggable="false" />
+                  <img src={item.image} alt={item.title} className="w-full h-48 object-contain rounded-t-lg" draggable="false" />
                   <div className="w-full px-4 py-3">
                     <div className="text-base font-semibold text-gray-800 truncate">{item.title}</div>
                     <div className="text-sm text-gray-600">{item.price}</div>

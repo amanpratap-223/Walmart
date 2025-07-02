@@ -11,70 +11,70 @@ const menProducts = [
     id: "men-1",
     title: "Men's Classic T-Shirt",
     price: "₹499",
-    image: "https://plus.unsplash.com/premium_photo-1718913936342-eaafff98834b?w=400",
+    image: "https://m.media-amazon.com/images/I/61V4w0+DusL._AC_UL320_.jpg",
     description: "Soft cotton t-shirt in a relaxed fit.",
   },
   {
     id: "men-2",
     title: "Slim Fit Jeans",
     price: "₹1,299",
-    image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/61f3Y0M2QUL._AC_UL320_.jpg",
     description: "Stretchy, comfortable and stylish.",
   },
   {
     id: "men-3",
     title: "Formal Shirt",
     price: "₹799",
-    image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/61WswLTIRqL._AC_UL320_.jpg",
     description: "Perfect for office and parties.",
   },
   {
     id: "men-4",
     title: "Sports Shoes",
     price: "₹1,599",
-    image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/71f3BmjCwtL._AC_UL320_.jpg",
     description: "Lightweight, durable running shoes.",
   },
   {
     id: "men-5",
     title: "Casual Shorts",
     price: "₹499",
-    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/51rfcp6bf+L._AC_UL320_.jpg",
     description: "Ideal for summer and lounge.",
   },
   {
     id: "men-6",
     title: "Men's Wallet",
     price: "₹299",
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/71BBDbVaknL._AC_UL320_.jpg",
     description: "Classic leather wallet with card slots.",
   },
   {
     id: "men-7",
     title: "Analog Watch",
     price: "₹999",
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/61JDO9NNOiL._AC_UL320_.jpg",
     description: "Elegant timepiece for every outfit.",
   },
   {
     id: "men-8",
     title: "Polo T-shirt",
     price: "₹699",
-    image: "https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/71eUwDk8z+L._AC_UL320_.jpg",
     description: "Breathable, with a smart collar.",
   },
   {
     id: "men-9",
     title: "Track Pants",
     price: "₹849",
-    image: "https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/61H2fYPv4BL._AC_UL320_.jpg",
     description: "Perfect for sports and leisure.",
   },
   {
     id: "men-10",
     title: "Hooded Sweatshirt",
     price: "₹1,099",
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/51bYCaUbNAL._AC_UL320_.jpg",
     description: "Stay cozy and warm.",
   },
 ];
@@ -152,7 +152,7 @@ const MenOnly = () => {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-44 object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-48 object-contain rounded-t-lg"
                     draggable="false"
                   />
                   <div className="w-full px-4 py-3">

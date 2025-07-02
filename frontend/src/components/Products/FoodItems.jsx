@@ -9,70 +9,70 @@ const foodItems = [
     id: "food-1",
     title: "Basmati Rice 5kg",
     price: "₹499",
-    image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/61XFtNhIx+L._AC_UL320_.jpg",
     description: "Premium aromatic basmati rice.",
   },
   {
     id: "food-2",
     title: "Fortune Sunflower Oil",
     price: "₹299",
-    image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/81FbVYZJYyL._AC_UL320_.jpg",
     description: "Healthy cooking oil.",
   },
   {
     id: "food-3",
     title: "Amul Butter 500g",
     price: "₹249",
-    image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=400&q=80",
+    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/app/assets/products/sliding_images/jpeg/0be0d49a-4dae-408a-8786-afae1dd05cb1.jpg?ts=1707312314",
     description: "Delicious and creamy butter.",
   },
   {
     id: "food-4",
     title: "Parle-G Biscuits",
     price: "₹30",
-    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/71bufOt9zAL._AC_UL320_.jpg",
     description: "Classic snack for all ages.",
   },
   {
     id: "food-5",
     title: "Maggi Noodles",
     price: "₹12",
-    image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/812ujEPZcML._AC_UL320_.jpg",
     description: "Favorite instant noodles.",
   },
   {
     id: "food-6",
     title: "Haldiram's Chips",
     price: "₹50",
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
+    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/1dac661a-59d8-4d12-a779-ffac1f64d34b.jpg?ts=1736785731",
     description: "Crispy and tasty potato chips.",
   },
   {
     id: "food-7",
     title: "Tata Salt",
     price: "₹18",
-    image: "https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=crop&w=400&q=80",
+    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/91920d93-6cd1-44a1-84fe-7d3ac7879c3b.jpg?ts=1742542931",
     description: "India's trusted salt brand.",
   },
   {
     id: "food-8",
     title: "Real Mixed Juice",
     price: "₹99",
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/bd885069-64a2-436e-bcea-8ce2af4064d4.jpg?ts=1741698447",
     description: "Refreshing fruit beverage.",
   },
   {
     id: "food-9",
     title: "Nescafe Instant Coffee",
     price: "₹249",
-    image: "https://images.unsplash.com/photo-1465101178521-c1a9136a07b7?auto=format&fit=crop&w=400&q=80",
+    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/a572618f-d2ed-4c58-8eb8-99f9066661d0.jpg?ts=1746177569",
     description: "Perfect start to your day.",
   },
   {
     id: "food-10",
     title: "Britannia Cheese 200g",
     price: "₹110",
-    image: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=400&q=80",
+    image: "https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=270/da/cms-assets/cms/product/15b1d5c4-2d7a-4437-acaf-aa189ed6f831.jpg?ts=1747379406",
     description: "Soft and creamy cheese.",
   },
 ];
@@ -148,7 +148,7 @@ const FoodItems = () => {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-44 object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-48 object-contain rounded-t-lg"
                     draggable="false"
                   />
                   <div className="w-full px-4 py-3">

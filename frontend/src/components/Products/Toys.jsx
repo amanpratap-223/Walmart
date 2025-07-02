@@ -1,79 +1,77 @@
-
-
 import React, { useState } from "react";
 import Slider from "react-slick";
 import ProductModal from "./ProductModal";
 
-// Toy data
+// Toy data with appropriate images
 const toys = [
   {
     id: "toy-1",
     title: "Lego Building Blocks",
     price: "₹1,299",
-    image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/81wdfOPNv9L._AC_UL320_.jpg", // Lego blocks
     description: "Develops creativity and motor skills.",
   },
   {
     id: "toy-2",
     title: "Remote Car",
     price: "₹899",
-    image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/61q+iNjjZEL._AC_UL320_.jpg", // Remote car
     description: "Fun and easy to use for kids.",
   },
   {
     id: "toy-3",
     title: "Teddy Bear",
     price: "₹499",
-    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/61p4rKoTJ6L._AC_UL320_.jpg", // Teddy bear
     description: "Soft and huggable plush toy.",
   },
   {
     id: "toy-4",
     title: "Puzzle Set",
     price: "₹349",
-    image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/81ux39RV4zL._AC_UL320_.jpg", // Puzzle pieces
     description: "Boosts intelligence and memory.",
   },
   {
     id: "toy-5",
     title: "Action Figure",
     price: "₹649",
-    image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/71XCnUr6FgL._AC_UL320_.jpg", // Action figure
     description: "For fun and imaginative play.",
   },
   {
     id: "toy-6",
     title: "Coloring Kit",
     price: "₹199",
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/81rwm2Z5tDL._AC_UL320_.jpg", // Coloring pencils
     description: "Includes colors, pencils, and sketches.",
   },
   {
     id: "toy-7",
     title: "Rubik's Cube",
     price: "₹299",
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/61DJtHM5q7L._AC_UL320_.jpg", // Rubik's cube
     description: "The original mind puzzle.",
   },
   {
     id: "toy-8",
     title: "Doctor Set",
     price: "₹349",
-    image: "https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/81ARZdKVaWL._AC_UL320_.jpg", // Toy stethoscope
     description: "Encourages role-play and fun.",
   },
   {
     id: "toy-9",
     title: "RC Helicopter",
     price: "₹1,899",
-    image: "https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/614N-qNXfyL._AC_UL320_.jpg", // RC helicopter
     description: "Easy controls for kids and adults.",
   },
   {
     id: "toy-10",
     title: "Doll House",
     price: "₹1,299",
-    image: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=400&q=80",
+    image: "https://m.media-amazon.com/images/I/71E+LENb8ML._AC_UL320_.jpg", // Doll house
     description: "A mini home for creative play.",
   },
 ];
@@ -152,7 +150,7 @@ const Toys = () => {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-44 object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-48 object-contain rounded-t-lg"
                     draggable="false"
                   />
                   <div className="w-full px-4 py-3">
@@ -178,5 +176,3 @@ const Toys = () => {
 };
 
 export default Toys;
-
-
