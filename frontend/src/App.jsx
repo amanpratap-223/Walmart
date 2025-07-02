@@ -30,6 +30,7 @@ import UserLayout from "./components/Layout/UserLayout";
 import Home from "./pages/Home";
 import Login from './pages/Login';
 import Register from './pages/Register';
+import CategoryPage from './pages/CategoryPage';
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<UserLayout />}>
           <Route index element={<Home />} />
+          <Route path="/category/:categoryName" element={<CategoryPage />} />
           <Route path="login" element={<Login/>}/>
           <Route path="register" element={<Register/>}/>
           {/* ...add more routes here as needed */}

@@ -155,7 +155,7 @@ const menuItems = [
   { label: "Women", category: "womens-dresses" },
   { label: "Trending", category: "smartphones" },
   { label: "Only at Walmart", category: "home-decoration" },
-  { label: "Pharmacy", category: "skincare" },
+  { label: "Furniture", category: "furniture" },
   { label: "Electronics", category: "laptops" },
   { label: "Grocery", category: "groceries" },
 ];
