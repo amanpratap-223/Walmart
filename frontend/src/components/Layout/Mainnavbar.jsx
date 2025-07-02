@@ -5,11 +5,21 @@ import {
   HiOutlineShoppingBag,
   HiBars3BottomRight,
   HiXMark,
-  HiMagnifyingGlass, // <-- Import the search icon!
+  HiMagnifyingGlass,
 } from 'react-icons/hi2';
 import SearchBar from '../Common/SearchBar';
 import CartDrawer from './CartDrawer';
 import { useCart } from '../../context/CartContext';
+
+const menuItems = [
+  { label: "Men", category: "mens-shirts" },
+  { label: "Women", category: "womens-dresses" },
+  { label: "Trending", category: "smartphones" },
+  { label: "Only at Walmart", category: "home-decoration" },
+  { label: "Pharmacy", category: "skincare" },
+  { label: "Electronics", category: "laptops" },
+  { label: "Grocery", category: "groceries" },
+];
 
 const Mainnavbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -27,16 +37,6 @@ const Mainnavbar = () => {
   const { cartProducts } = useCart();
   const totalItems = cartProducts.reduce((sum, item) => sum + item.quantity, 0);
 
-  const menuItems = [
-    'Men',
-    'Women',
-    'Trending',
-    'Only at Walmart',
-    'Pharmacy',
-    'Electronics',
-    'Grocery',
-  ];
-
   return (
     <>
       {!isSearchOpen && (
@@ -51,11 +51,11 @@ const Mainnavbar = () => {
             <div className="hidden md:flex flex-1 items-center justify-center space-x-8">
               {menuItems.map((item) => (
                 <Link
-                  key={item}
-                  to="#"
+                  key={item.category}
+                  to={`/category/${item.category}`}
                   className="text-sm font-semibold uppercase text-gray-800 hover:underline underline-offset-4"
                 >
-                  {item}
+                  {item.label}
                 </Link>
               ))}
             </div>
@@ -99,11 +99,12 @@ const Mainnavbar = () => {
             <div className="md:hidden px-6 pb-4 space-y-4">
               {menuItems.map((item) => (
                 <Link
-                  key={item}
-                  to="#"
+                  key={item.category}
+                  to={`/category/${item.category}`}
                   className="block text-sm font-semibold uppercase text-gray-800 hover:underline"
+                  onClick={() => setMobileMenuOpen(false)} // closes menu on click
                 >
-                  {item}
+                  {item.label}
                 </Link>
               ))}
               <div className="flex space-x-6 pt-2 border-t pt-4">
