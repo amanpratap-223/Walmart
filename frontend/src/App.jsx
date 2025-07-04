@@ -32,6 +32,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import CategoryPage from './pages/CategoryPage';
 import Profile from './pages/Profile';
+import Checkout from './components/Cart/Checkout'; // <-- import Checkout component
+
 
 const App = () => {
   return (
@@ -45,6 +47,7 @@ const App = () => {
           <Route path="login" element={<Login/>}/>
           <Route path="register" element={<Register/>}/>
           <Route path="profile" element={<Profile/>}/>
+          <Route path="checkout" element={<Checkout/>} />
           {/* ...add more routes here as needed */}
         </Route>
         <Route>
