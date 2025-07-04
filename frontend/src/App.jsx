@@ -31,6 +31,7 @@ import Home from "./pages/Home";
 import Login from './pages/Login';
 import Register from './pages/Register';
 import CategoryPage from './pages/CategoryPage';
+import Profile from './pages/Profile';
 
 const App = () => {
   return (
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/category/:categoryName" element={<CategoryPage />} />
           <Route path="login" element={<Login/>}/>
           <Route path="register" element={<Register/>}/>
+          <Route path="profile" element={<Profile/>}/>
           {/* ...add more routes here as needed */}
         </Route>
         <Route>
