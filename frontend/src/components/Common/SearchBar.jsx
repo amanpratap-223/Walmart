@@ -1,63 +1,157 @@
 
 
-import { useState } from "react";
-import { HiMagnifyingGlass } from "react-icons/hi2";
-import { IoClose } from "react-icons/io5";
+import React, { useState, useRef } from "react";
+import { HiMagnifyingGlass }            from "react-icons/hi2";
+import { BiMicrophone, BiMicrophoneOff } from "react-icons/bi";
+import { IoClose }                       from "react-icons/io5";
+import { useNavigate }                   from "react-router-dom";
 
-const SearchBar = ({ isOpen, setIsOpen }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
 
-  const handleCancel = () => {
-    setSearchTerm("");
+export default function SearchBar({ isOpen, setIsOpen }) {
+  const [query, setQuery]         = useState("");
+  const [listening, setListening] = useState(false);
+  const recognition = useRef(null);
+  const nav         = useNavigate();
+
+  // Initialize SpeechRecognition only once
+  if (!recognition.current && SpeechRecognition) {
+    recognition.current = new SpeechRecognition();
+    recognition.current.continuous     = false;
+    recognition.current.lang           = "en-US";
+    recognition.current.interimResults = false;
+
+    recognition.current.onstart = () => setListening(true);
+    recognition.current.onend   = () => setListening(false);
+    recognition.current.onerror = (e) => {
+      console.error("Speech error", e.error);
+      setListening(false);
+    };
+    recognition.current.onspeechend = () => {
+      recognition.current.stop();
+    };
+    recognition.current.onresult = (e) => {
+      // Grab the first result
+      const raw = e.results[0][0].transcript;
+      // Clean out punctuation, trim & lowercase
+      const cleaned = raw
+        .replace(/[^\p{L}\p{N}\s]/gu, "")
+        .trim()
+        .toLowerCase();
+      recognition.current.stop();
+      doSearch(cleaned);
+      cleanup();
+    };
+  }
+
+  // Fire the search endpoint + navigate
+  const doSearch = async (q) => {
+    try {
+      const res = await fetch(
+        `http://localhost:9000/api/products/search?q=${encodeURIComponent(q)}`
+      );
+      const results = await res.json();
+      if (results.length === 1) {
+        nav(`/product/${results[0].id}`);
+      } else {
+        nav(`/search?query=${encodeURIComponent(q)}`);
+      }
+    } catch {
+      nav(`/search?query=${encodeURIComponent(q)}`);
+    }
+  };
+
+  // Start voice: first request mic permission, then start recognition
+  const startListening = () => {
+    if (!recognition.current) {
+      return alert("Voice search not supported");
+    }
+
+    navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .then((stream) => {
+        // stop the tracks right away—we just needed permission
+        stream.getTracks().forEach((t) => t.stop());
+        recognition.current.start();
+      })
+      .catch((err) => {
+        console.error("Mic permission denied", err);
+        alert("Please allow microphone access to use voice search.");
+      });
+  };
+
+  // Clean up UI state
+  const cleanup = () => {
+    if (recognition.current) recognition.current.stop();
+    setListening(false);
+    setQuery("");
     setIsOpen(false);
   };
 
-  const handleSubmit = (e) => {
+  // Manual text-submit
+  const onSubmit = (e) => {
     e.preventDefault();
-    console.log("Search Term:", searchTerm);
-    setSearchTerm("");
-    setIsOpen(false);
+    const cleaned = query
+      .replace(/[^\p{L}\p{N}\s]/gu, "")
+      .trim()
+      .toLowerCase();
+    if (cleaned) doSearch(cleaned);
+    cleanup();
   };
 
   return (
-    <div
-      className={`transition-all duration-300 ${
-        isOpen
-          ? "absolute top-0 left-0 w-full h-24 bg-white z-50 flex items-center justify-center"
-          : "w-auto"
-      }`}
-    >
-      {isOpen ? (
-        <form
-          className="flex items-center space-x-4 w-full justify-center"
-          onSubmit={handleSubmit}
-        >
-          <div className="relative w-1/2">
-            <input
-              type="text"
-              placeholder="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-gray-100 px-4 py-2 pr-10 rounded-lg focus:outline-none w-full placeholder:text-gray-700"
-            />
-            <HiMagnifyingGlass className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5" />
-          </div>
-          <button
-            type="button"
-            onClick={handleCancel}
-            className="text-gray-600 hover:text-black"
-          >
-            <IoClose className="h-6 w-6" />
-          </button>
-        </form>
-      ) : (
-        <button onClick={() => setIsOpen(true)} className="ml-4">
-          <HiMagnifyingGlass className="h-6 w-6" />
-        </button>
+    <>
+      {isOpen && (
+        <div className="absolute top-0 left-0 w-full h-24 bg-white z-40 flex items-center justify-center shadow">
+          {listening ? (
+            <div className="relative w-3/4 max-w-xl">
+              <input
+                type="text"
+                disabled
+                placeholder="Listening..."
+                className="w-full py-3 px-4 rounded-full border bg-gray-100 text-gray-700"
+              />
+              <button
+                onClick={() => recognition.current.stop()}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-red-500 p-2 rounded-full shadow hover:bg-red-600"
+                aria-label="Stop listening"
+              >
+                <BiMicrophoneOff className="h-6 w-6 text-white" />
+              </button>
+            </div>
+          ) : (
+            <form
+              onSubmit={onSubmit}
+              className="flex items-center w-3/4 max-w-xl space-x-2"
+            >
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="flex-1 py-3 px-4 rounded-full border focus:outline-none"
+              />
+              <button
+                type="button"
+                onClick={startListening}
+                className="h-12 w-12 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center shadow"
+                aria-label="Start voice search"
+              >
+                <BiMicrophone className="h-6 w-6 text-white" />
+              </button>
+              <button
+                type="button"
+                onClick={cleanup}
+                className="h-12 w-12 flex items-center justify-center text-gray-600 hover:text-black"
+                aria-label="Close search"
+              >
+                <IoClose className="h-6 w-6" />
+              </button>
+            </form>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
-};
-
-export default SearchBar;
-
+}

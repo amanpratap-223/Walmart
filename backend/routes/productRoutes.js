@@ -1,33 +1,91 @@
 
 
-
-// module.exports = router;
-
 const express = require('express');
-const router = express.Router();
+const router  = express.Router();
 const Product = require('../models/Product');
 
-// GET all products
+
+// router.get('/search', async (req, res) => {
+//   try {
+//     const q = (req.query.q || '').trim();
+//     if (!q) return res.json([]);
+
+//     // 1) Exact (case‐insensitive)
+//     let prods = await Product.find({
+//       name: { $regex: `^${q}$`, $options: 'i' }
+//     });
+
+//     // 2) Partial if no exact
+//     if (prods.length === 0) {
+//       prods = await Product.find({
+//         name: { $regex: q, $options: 'i' }
+//       });
+//     }
+
+//     const out = prods.map(p => {
+//       const { _id, ...rest } = p._doc;
+//       return { id: _id, ...rest };
+//     });
+//     res.json(out);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+router.get('/search', async (req, res) => {
+  try {
+    const q = (req.query.q || '').trim();
+    if (!q) return res.json([]);
+
+    // 1️⃣ Exact match (whole name)
+    let prods = await Product.find({
+      name: { $regex: `^${q}$`, $options: 'i' }
+    });
+
+    // 2️⃣ Fuzzy fallback if no exact
+    if (prods.length === 0) {
+      // turn "t shirt" → ["t","shirt"], escape, then build "t.*shirt"
+      const parts = q
+        .split(/\s+/)
+        .map(w => w.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'));
+      const fuzzy = parts.join('.*');
+      prods = await Product.find({
+        name: { $regex: fuzzy, $options: 'i' }
+      });
+    }
+
+    // map _id → id
+    const out = prods.map(p => {
+      const { _id, ...rest } = p._doc;
+      return { id: _id, ...rest };
+    });
+    res.json(out);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get all products
 router.get('/', async (req, res) => {
   const products = await Product.find();
-  const updatedProducts = products.map(p => {
+  const updated  = products.map(p => {
     const { _id, ...rest } = p._doc;
     return { id: _id, ...rest };
   });
-  res.json(updatedProducts);
+  res.json(updated);
 });
 
-// GET products by category
+// Get by category
 router.get('/category/:category', async (req, res) => {
   const products = await Product.find({ category: req.params.category });
-  const updatedProducts = products.map(p => {
+  const updated  = products.map(p => {
     const { _id, ...rest } = p._doc;
     return { id: _id, ...rest };
   });
-  res.json(updatedProducts);
+  res.json(updated);
 });
 
-// GET single product by id
+// Get single product
 router.get('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
