@@ -151,13 +151,13 @@ import CartDrawer from './CartDrawer';
 import { useCart } from '../../context/CartContext';
 
 const menuItems = [
-  { label: "Men", category: "mens-shirts" },
-  { label: "Women", category: "womens-dresses" },
-  { label: "Trending", category: "smartphones" },
-  { label: "Only at Walmart", category: "home-decoration" },
+  { label: "Men", category: "men" },
+  { label: "Women", category: "women" },
+  { label: "Trending", category: "trending" },
+  { label: "Only at Walmart", category: "only-at-walmart" },
   { label: "Furniture", category: "furniture" },
-  { label: "Electronics", category: "laptops" },
-  { label: "Grocery", category: "groceries" },
+  { label: "Electronics", category: "electronics" },
+  { label: "Grocery", category: "grocery" },
 ];
 
 const Mainnavbar = () => {
