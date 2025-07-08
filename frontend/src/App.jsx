@@ -3,6 +3,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { Toaster }    from 'react-hot-toast';
+import ChatbotLoader from './components/ChatbotLoader';
+
 
 import Mainnavbar     from './components/Layout/Mainnavbar';
 import Home           from './pages/Home';
@@ -22,6 +24,7 @@ function App() {
         {/* 1) Toaster must live outside of Routes so it's always there */}
         <Toaster position="top-right" />
         <Mainnavbar />
+         <ChatbotLoader /> 
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/category/:categoryName" element={<CategoryPage />} />

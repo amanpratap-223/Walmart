@@ -5,32 +5,6 @@ const router  = express.Router();
 const Product = require('../models/Product');
 
 
-// router.get('/search', async (req, res) => {
-//   try {
-//     const q = (req.query.q || '').trim();
-//     if (!q) return res.json([]);
-
-//     // 1) Exact (case‐insensitive)
-//     let prods = await Product.find({
-//       name: { $regex: `^${q}$`, $options: 'i' }
-//     });
-
-//     // 2) Partial if no exact
-//     if (prods.length === 0) {
-//       prods = await Product.find({
-//         name: { $regex: q, $options: 'i' }
-//       });
-//     }
-
-//     const out = prods.map(p => {
-//       const { _id, ...rest } = p._doc;
-//       return { id: _id, ...rest };
-//     });
-//     res.json(out);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
 
 router.get('/search', async (req, res) => {
   try {
