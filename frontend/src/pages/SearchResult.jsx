@@ -32,7 +32,7 @@ export default function SearchResults() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {items.map(p => (
             <div key={p.id} className="border p-4 rounded flex flex-col">
-              <img src={p.image} alt={p.name} className="h-40 object-cover mb-2" />
+              <img src={p.image} alt={p.name} className="h-40 object-contain mb-2 bg-gray-50" />
               <h3 className="font-semibold">{p.name}</h3>
               <p className="text-green-600">₹{p.price}</p>
               <div className="mt-auto flex space-x-2">

@@ -18,7 +18,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// API routes
+
+app.use(cors({ origin: 'http://localhost:5173' }));
+
+
+
+
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes); // <-- Add this line
 app.use('/api/cart', cartRoutes);
