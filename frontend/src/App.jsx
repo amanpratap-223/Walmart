@@ -19,6 +19,7 @@ import AdminLayout    from './components/Admin/AdminLayout'
 import AdminHomePage  from './pages/AdminHomePage'
 import UserManagement from './components/Admin/UserManagement'
 import ProductManagement from './components/Admin/ProductManagement'
+import OrderManagement from './components/Admin/OrderManagement'
 
 export default function App() {
   return (
@@ -28,7 +29,9 @@ export default function App() {
 
         <Routes>
           {/* Public routes */}
+          
           <Route element={<PublicLayout />}>
+          
             <Route path="/"                        element={<Home />} />
             <Route path="/category/:categoryName" element={<CategoryPage />} />
             <Route path="/search"                 element={<SearchResults />} />
@@ -46,6 +49,7 @@ export default function App() {
             <Route index element={<AdminHomePage />} />
             <Route path="users" element = {<UserManagement />} />
             <Route path="products" element = {<ProductManagement />} />
+            <Route path="orders" element = {<OrderManagement />} />
            
           </Route>
         </Routes>

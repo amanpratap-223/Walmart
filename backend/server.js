@@ -3,7 +3,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db'); // or './connectDB' if that's your file
 const productRoutes = require('./routes/productRoutes');
-const userRoutes = require('./routes/userRoutes'); // <-- Add this line
+const userRoutes = require('./routes/userRoutes'); 
+const orderRoutes   = require('./routes/orderRoutes');
 
 
 
@@ -27,6 +28,7 @@ app.use(cors({ origin: 'http://localhost:5173' }));
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes); // <-- Add this line
 app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Optional: Basic health check endpoint
 app.get('/', (req, res) => {
