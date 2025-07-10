@@ -1,22 +1,23 @@
 
-
 // const express = require('express');
 // const router  = express.Router();
 // const Product = require('../models/Product');
 
-
-
+// // SEARCH across name OR category
 // router.get('/search', async (req, res) => {
 //   try {
 //     const q = (req.query.q || '').trim();
 //     if (!q) return res.json([]);
 
-//     // 1️⃣ Exact match (whole name)
+//     // 1️⃣ Exact match on whole name or whole category
 //     let prods = await Product.find({
-//       name: { $regex: `^${q}$`, $options: 'i' }
+//       $or: [
+//         { name:     { $regex: `^${q}$`, $options: 'i' } },
+//         { category: { $regex: `^${q}$`, $options: 'i' } },
+//       ]
 //     });
 
-//     // 2️⃣ Fuzzy fallback if no exact
+//     // 2️⃣ Fuzzy fallback if no exact hits
 //     if (prods.length === 0) {
 //       // turn "t shirt" → ["t","shirt"], escape, then build "t.*shirt"
 //       const parts = q
@@ -24,7 +25,10 @@
 //         .map(w => w.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'));
 //       const fuzzy = parts.join('.*');
 //       prods = await Product.find({
-//         name: { $regex: fuzzy, $options: 'i' }
+//         $or: [
+//           { name:     { $regex: fuzzy, $options: 'i' } },
+//           { category: { $regex: fuzzy, $options: 'i' } },
+//         ]
 //       });
 //     }
 
@@ -34,7 +38,9 @@
 //       return { id: _id, ...rest };
 //     });
 //     res.json(out);
+
 //   } catch (err) {
+//     console.error(err);
 //     res.status(500).json({ error: err.message });
 //   }
 // });
@@ -67,23 +73,37 @@
 //     const { _id, ...rest } = product._doc;
 //     res.json({ id: _id, ...rest });
 //   } catch (err) {
+//     console.error(err);
 //     res.status(500).json({ error: err.message });
 //   }
 // });
 
 // module.exports = router;
-// backend/routes/productRoutes.js
+
 const express = require('express');
 const router  = express.Router();
 const Product = require('../models/Product');
 
-// SEARCH across name OR category
+// ─── CREATE ───────────────────────────────────────────────────────────────────
+router.post('/', async (req, res) => {
+  try {
+    const p = new Product(req.body);
+    const saved = await p.save();
+    const { _id, ...rest } = saved._doc;
+    res.status(201).json({ id: _id, ...rest });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// ─── SEARCH (name OR category, exact then fuzzy) ───────────────────────────────
 router.get('/search', async (req, res) => {
   try {
     const q = (req.query.q || '').trim();
-    if (!q) return res.json([]);
+    if (!q) return res.json([]);            // ← fixed double `return`
 
-    // 1️⃣ Exact match on whole name or whole category
+    // exact match on name or category
     let prods = await Product.find({
       $or: [
         { name:     { $regex: `^${q}$`, $options: 'i' } },
@@ -91,9 +111,8 @@ router.get('/search', async (req, res) => {
       ]
     });
 
-    // 2️⃣ Fuzzy fallback if no exact hits
+    // fuzzy fallback
     if (prods.length === 0) {
-      // turn "t shirt" → ["t","shirt"], escape, then build "t.*shirt"
       const parts = q
         .split(/\s+/)
         .map(w => w.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'));
@@ -106,7 +125,6 @@ router.get('/search', async (req, res) => {
       });
     }
 
-    // map _id → id
     const out = prods.map(p => {
       const { _id, ...rest } = p._doc;
       return { id: _id, ...rest };
@@ -119,33 +137,60 @@ router.get('/search', async (req, res) => {
   }
 });
 
-// Get all products
+// ─── LIST ALL ─────────────────────────────────────────────────────────────────
 router.get('/', async (req, res) => {
   const products = await Product.find();
-  const updated  = products.map(p => {
+  res.json(products.map(p => {
     const { _id, ...rest } = p._doc;
     return { id: _id, ...rest };
-  });
-  res.json(updated);
+  }));
 });
 
-// Get by category
+// ─── LIST BY CATEGORY ─────────────────────────────────────────────────────────
 router.get('/category/:category', async (req, res) => {
   const products = await Product.find({ category: req.params.category });
-  const updated  = products.map(p => {
+  res.json(products.map(p => {
     const { _id, ...rest } = p._doc;
     return { id: _id, ...rest };
-  });
-  res.json(updated);
+  }));
 });
 
-// Get single product
+// ─── GET SINGLE ───────────────────────────────────────────────────────────────
 router.get('/:id', async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
-    if (!product) return res.status(404).json({ message: "Product not found" });
-    const { _id, ...rest } = product._doc;
+    const p = await Product.findById(req.params.id);
+    if (!p) return res.status(404).json({ message: 'Product not found' });
+    const { _id, ...rest } = p._doc;
     res.json({ id: _id, ...rest });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ─── UPDATE ───────────────────────────────────────────────────────────────────
+router.put('/:id', async (req, res) => {
+  try {
+    const updated = await Product.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true, runValidators: true }
+    );
+    if (!updated) return res.status(404).json({ message: 'Product not found' });
+    const { _id, ...rest } = updated._doc;
+    res.json({ id: _id, ...rest });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// ─── DELETE ───────────────────────────────────────────────────────────────────
+router.delete('/:id', async (req, res) => {
+  try {
+    const deleted = await Product.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ message: 'Product not found' });
+    res.json({ message: 'Product deleted' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
