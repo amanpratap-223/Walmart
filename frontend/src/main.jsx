@@ -5,6 +5,7 @@ import './index.css';
 import App from './App.jsx';
 import { CartProvider } from './context/CartContext';  // ✅ import CartProvider
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <CartProvider> {/* ✅ wrap App inside CartProvider */}

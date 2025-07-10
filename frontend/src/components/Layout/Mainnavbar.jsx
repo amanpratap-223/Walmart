@@ -13,6 +13,7 @@ import {
 import SearchBar from '../Common/SearchBar';
 import CartDrawer from './CartDrawer';
 import { useCart } from '../../context/CartContext';
+import AdminLayout from '../Admin/AdminLayout';
 
 const menuItems = [
   { label: "Men", category: "men" },
@@ -65,6 +66,7 @@ const Mainnavbar = () => {
 
             {/* Desktop Icons */}
             <div className="hidden md:flex items-center space-x-6">
+              <Link to="/admin" className='block bg-black px-2 rounded text-sm text-white'>Admin</Link>
               <button onClick={() => setIsSearchOpen(true)} aria-label="Open search">
                 <HiMagnifyingGlass className="h-6 w-6 text-gray-800 cursor-pointer" />
               </button>
