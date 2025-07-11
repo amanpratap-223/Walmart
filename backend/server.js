@@ -1,3 +1,7 @@
+require('dotenv').config(); 
+// at the top of server.js, after require('dotenv').config()
+console.log('👉 OPENAI_API_KEY loaded?', !!process.env.OPENAI_API_KEY);
+
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -5,6 +9,8 @@ const connectDB = require('./config/db'); // or './connectDB' if that's your fil
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes'); 
 const orderRoutes   = require('./routes/orderRoutes');
+
+
 
 
 
@@ -29,6 +35,9 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes); // <-- Add this line
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
+// app.use('/api/ai', require('./routes/aiRoutes'));
+
+
 
 // Optional: Basic health check endpoint
 app.get('/', (req, res) => {

@@ -1,7 +1,4 @@
-
-
 import React, { useState, useRef } from "react";
-import { HiMagnifyingGlass }            from "react-icons/hi2";
 import { BiMicrophone, BiMicrophoneOff } from "react-icons/bi";
 import { IoClose }                       from "react-icons/io5";
 import { useNavigate }                   from "react-router-dom";
@@ -9,13 +6,13 @@ import { useNavigate }                   from "react-router-dom";
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 
-export default function SearchBar({ isOpen, setIsOpen }) {
+export default function SearchBar({ isOpen, onClose }) {
   const [query, setQuery]         = useState("");
   const [listening, setListening] = useState(false);
   const recognition = useRef(null);
   const nav         = useNavigate();
 
-  // Initialize SpeechRecognition only once
+  // Init speech recognition once
   if (!recognition.current && SpeechRecognition) {
     recognition.current = new SpeechRecognition();
     recognition.current.continuous     = false;
@@ -28,13 +25,9 @@ export default function SearchBar({ isOpen, setIsOpen }) {
       console.error("Speech error", e.error);
       setListening(false);
     };
-    recognition.current.onspeechend = () => {
-      recognition.current.stop();
-    };
-    recognition.current.onresult = (e) => {
-      // Grab the first result
+    recognition.current.onspeechend = () => recognition.current.stop();
+    recognition.current.onresult    = (e) => {
       const raw = e.results[0][0].transcript;
-      // Clean out punctuation, trim & lowercase
       const cleaned = raw
         .replace(/[^\p{L}\p{N}\s]/gu, "")
         .trim()
@@ -45,7 +38,7 @@ export default function SearchBar({ isOpen, setIsOpen }) {
     };
   }
 
-  // Fire the search endpoint + navigate
+  // perform the fetch+navigate
   const doSearch = async (q) => {
     try {
       const res = await fetch(
@@ -62,17 +55,15 @@ export default function SearchBar({ isOpen, setIsOpen }) {
     }
   };
 
-  // Start voice: first request mic permission, then start recognition
+  // start voice
   const startListening = () => {
     if (!recognition.current) {
       return alert("Voice search not supported");
     }
-
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then((stream) => {
-        // stop the tracks right away—we just needed permission
-        stream.getTracks().forEach((t) => t.stop());
+        stream.getTracks().forEach(t => t.stop());
         recognition.current.start();
       })
       .catch((err) => {
@@ -81,15 +72,15 @@ export default function SearchBar({ isOpen, setIsOpen }) {
       });
   };
 
-  // Clean up UI state
+  // cleanup UI state & close overlay
   const cleanup = () => {
     if (recognition.current) recognition.current.stop();
     setListening(false);
     setQuery("");
-    setIsOpen(false);
+    onClose();   // ← tell parent to close
   };
 
-  // Manual text-submit
+  // manual text search
   const onSubmit = (e) => {
     e.preventDefault();
     const cleaned = query
@@ -100,58 +91,56 @@ export default function SearchBar({ isOpen, setIsOpen }) {
     cleanup();
   };
 
+  if (!isOpen) return null;
+
   return (
-    <>
-      {isOpen && (
-        <div className="absolute top-0 left-0 w-full h-24 bg-white z-40 flex items-center justify-center shadow">
-          {listening ? (
-            <div className="relative w-3/4 max-w-xl">
-              <input
-                type="text"
-                disabled
-                placeholder="Listening..."
-                className="w-full py-3 px-4 rounded-full border bg-gray-100 text-gray-700"
-              />
-              <button
-                onClick={() => recognition.current.stop()}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-red-500 p-2 rounded-full shadow hover:bg-red-600"
-                aria-label="Stop listening"
-              >
-                <BiMicrophoneOff className="h-6 w-6 text-white" />
-              </button>
-            </div>
-          ) : (
-            <form
-              onSubmit={onSubmit}
-              className="flex items-center w-3/4 max-w-xl space-x-2"
-            >
-              <input
-                type="text"
-                placeholder="Search products..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                className="flex-1 py-3 px-4 rounded-full border focus:outline-none"
-              />
-              <button
-                type="button"
-                onClick={startListening}
-                className="h-12 w-12 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center shadow"
-                aria-label="Start voice search"
-              >
-                <BiMicrophone className="h-6 w-6 text-white" />
-              </button>
-              <button
-                type="button"
-                onClick={cleanup}
-                className="h-12 w-12 flex items-center justify-center text-gray-600 hover:text-black"
-                aria-label="Close search"
-              >
-                <IoClose className="h-6 w-6" />
-              </button>
-            </form>
-          )}
+    <div className="absolute top-0 left-0 w-full h-24 bg-white z-40 flex items-center justify-center shadow">
+      {listening ? (
+        <div className="relative w-3/4 max-w-xl">
+          <input
+            type="text"
+            disabled
+            placeholder="Listening..."
+            className="w-full py-3 px-4 rounded-full border bg-gray-100 text-gray-700"
+          />
+          <button
+            onClick={() => recognition.current.stop()}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-red-500 p-2 rounded-full shadow hover:bg-red-600"
+            aria-label="Stop listening"
+          >
+            <BiMicrophoneOff className="h-6 w-6 text-white" />
+          </button>
         </div>
+      ) : (
+        <form
+          onSubmit={onSubmit}
+          className="flex items-center w-3/4 max-w-xl space-x-2"
+        >
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            className="flex-1 py-3 px-4 rounded-full border focus:outline-none"
+          />
+          <button
+            type="button"
+            onClick={startListening}
+            className="h-12 w-12 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center shadow"
+            aria-label="Start voice search"
+          >
+            <BiMicrophone className="h-6 w-6 text-white" />
+          </button>
+          <button
+            type="button"
+            onClick={cleanup}
+            className="h-12 w-12 flex items-center justify-center text-gray-600 hover:text-black"
+            aria-label="Close search"
+          >
+            <IoClose className="h-6 w-6" />
+          </button>
+        </form>
       )}
-    </>
+    </div>
   );
 }
